@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Code Crafters | Events</title>
+
+  <link rel="icon" type="image/png" href="../../assets/tcc-logo/favicon-32.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/workshop-page.css">
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="back-btn-wrapper">
+        <button class="cta cta-back" type="button" onclick="goToweb()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16" aria-hidden="true">
+            <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+          </svg>
+          <span class="hover-underline-animation">Back</span>
+        </button>
+      </div>
+
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+
+      <p class="hero-prompt">event.participations()</p>
+      <h1 class="hero-title">
+        <span class="block-reveal">
+          <span class="block-content">Event</span>
+          <span class="block-revealer"></span>
+        </span>
+        <br />
+        <span class="block-reveal">
+          <span class="block-content">Participations</span>
+          <span class="block-revealer"></span>
+        </span>
+      </h1>
+      <p class="hero-sub">
+        <span class="block-reveal" style="display:block;">
+          <span class="block-content">Code Crafters members join competitions, campus programs, and tech gatherings where they can test ideas, collaborate with peers, and bring classroom skills into real events.</span>
+          <span class="block-revealer"></span>
+        </span>
+      </p>
+    </section>
+  </main>
+
+  <script>
+    function goToweb() {
+      sessionStorage.setItem('skipHomeIntro', '1');
+      window.location.href = '../../index.html#activities';
+    }
+  </script>
+</body>
+</html>
