@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', syncButtonState, { passive: true });
   window.addEventListener('resize', syncButtonState);
 });
+
 /* ============================================================
    scroll-animations.js
    Requires GSAP + ScrollTrigger (already loaded in index.html)
@@ -74,12 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let rebuildTimer = null;
     let cleanupSetup = null;
     let currentViewportMode = mobileMedia.matches ? 'mobile' : 'desktop';
+    let skippedIntroReadyDispatched = false;
 
     /* Give the intro timeline a moment to finish before we
        register ScrollTriggers (intro is ~3.5 s total).       */
     const INIT_DELAY = 4000; // ms — matches master TL duration
 
-    const resolvedInitDelay = document.querySelector('.home') && !window.__skipHomeIntro ? INIT_DELAY : 0;
+    const hasHome = !!document.querySelector('.home');
+    const resolvedInitDelay = hasHome && !window.__skipHomeIntro ? INIT_DELAY : 0;
 
     function runSetup() {
       if (setupTimer) {
@@ -96,7 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
       currentViewportMode = mobileMedia.matches ? 'mobile' : 'desktop';
 
       requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
+        refreshScrollTriggersFromTop();
+
+        if (window.__skipHomeIntro && !skippedIntroReadyDispatched) {
+          skippedIntroReadyDispatched = true;
+          window.__homeScrollAnimationsReady = true;
+          window.dispatchEvent(new CustomEvent('home:scroll-animations-ready'));
+        }
       });
     }
 
@@ -126,8 +135,32 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        ScrollTrigger.refresh();
+        refreshScrollTriggersFromTop();
       }, 160);
+    }
+
+    function refreshScrollTriggersFromTop() {
+      if (!window.ScrollTrigger) return;
+
+      const savedX = window.scrollX;
+      const savedY = window.scrollY;
+      const root = document.documentElement;
+      const previousScrollBehavior = root.style.scrollBehavior;
+
+      root.style.scrollBehavior = 'auto';
+
+      if (savedX || savedY) {
+        window.scrollTo(0, 0);
+      }
+
+      ScrollTrigger.refresh();
+
+      if (savedX || savedY) {
+        window.scrollTo(savedX, savedY);
+        ScrollTrigger.update();
+      }
+
+      root.style.scrollBehavior = previousScrollBehavior;
     }
 
     if (resolvedInitDelay) scheduleSetup(resolvedInitDelay);
@@ -156,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setup() {
 
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ autoRefreshEvents: 'DOMContentLoaded' });
     const ctx = gsap.context(() => {
 
     /* ── helpers ──────────────────────────────────────── */
@@ -360,8 +394,47 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const HOME_EXIT_PERCENT = 0.3;
+
+    function getHomeExitOffset() {
+      return Math.max(homeSection.offsetHeight * HOME_EXIT_PERCENT, 40);
+    }
+
+    function isPastHomeThreshold(scrollValue = window.scrollY) {
+      return scrollValue > getHomeExitOffset();
+    }
+
+    function setHomeExitedState() {
+      gsap.set(nav, { y: -56, opacity: 0 });
+      gsap.set(badge, { y: -20, opacity: 0 });
+      gsap.set(headlineWrap, { y: -40, opacity: 0 });
+      gsap.set(subWrapper, { y: 20, opacity: 0 });
+      gsap.set(sliderEl, { y: 0, scale: 0.82, autoAlpha: 0 });
+      gsap.set(headline, { opacity: 1 });
+
+      const sliderSpinner = qs('.slider');
+      if (sliderSpinner) sliderSpinner.classList.remove('is-spinning');
+    }
+
+    function setHomeVisibleState() {
+      gsap.set(nav, { y: 0, opacity: 1 });
+      gsap.set(badge, { y: 0, opacity: 1 });
+      gsap.set(headlineWrap, { y: 0, opacity: 1 });
+      gsap.set(subWrapper, { y: 0, opacity: 1 });
+      gsap.set(sliderEl, { y: 0, scale: 1, autoAlpha: 1 });
+      gsap.set(headline, { opacity: 1 });
+
+      const sliderSpinner = qs('.slider');
+      if (sliderSpinner) sliderSpinner.classList.add('is-spinning');
+    }
+
     /* Track whether the home elements are currently visible */
-    let homeVisible = true;
+    let homeVisible = !isPastHomeThreshold();
+    if (homeVisible && window.__skipHomeIntro) {
+      setHomeVisibleState();
+    } else if (!homeVisible) {
+      setHomeExitedState();
+    }
     let reEnterTL = null;
     const REENTER_FAST = 0.48;
 
@@ -429,18 +502,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ── EXIT on scroll away ──────────────────────────── */
-    const HOME_EXIT_PERCENT = 0.3;
-
-    function getHomeExitOffset() {
-      return Math.max(homeSection.offsetHeight * HOME_EXIT_PERCENT, 40);
-    }
-
     ScrollTrigger.create({
       trigger: homeSection,
       start: 'top top',
       end: 'max',
       onUpdate(self) {
-        const pastThreshold = self.scroll() > getHomeExitOffset();
+        const pastThreshold = isPastHomeThreshold(self.scroll());
 
         if (pastThreshold && homeVisible) {
           homeVisible = false;

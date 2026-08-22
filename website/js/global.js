@@ -45,26 +45,159 @@
 
 
 /* ── Master intro + homepage entrance ───────────────────────── */
+window.__skipHomeIntro = sessionStorage.getItem("skipHomeIntro") === "1";
+window.__homeScrollAnimationsReady = false;
+let skippedHomeTargetApplied = false;
+let skippedHomeLoadHandled = false;
+
+function hideSkippedHomeIntroScreen() {
+  const intro = document.querySelector(".intro-screen");
+
+  if (intro) {
+    intro.style.opacity = "0";
+    intro.style.display = "none";
+  }
+}
+
+function scrollToSkippedHomeTarget() {
+  const target = window.location.hash ? document.querySelector(window.location.hash) : null;
+
+  if (!target) {
+    return;
+  }
+
+  const root = document.documentElement;
+  const previousScrollBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  target.scrollIntoView({ behavior: "auto", block: "start" });
+  root.style.scrollBehavior = previousScrollBehavior;
+}
+
+function resetSkippedHomeIntroToTop() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
+function applySkippedHomeTarget() {
+  if (skippedHomeTargetApplied) {
+    return;
+  }
+
+  skippedHomeTargetApplied = true;
+  scrollToSkippedHomeTarget();
+  sessionStorage.removeItem("skipHomeIntro");
+
+  if (skippedHomeLoadHandled) {
+    window.__skipHomeIntro = false;
+  }
+}
+
+function correctSkippedHomeTargetPosition() {
+  const target = window.location.hash ? document.querySelector(window.location.hash) : null;
+
+  if (!target) {
+    return;
+  }
+
+  if (Math.abs(target.getBoundingClientRect().top) > 2) {
+    scrollToSkippedHomeTarget();
+  }
+}
+
+function settleSkippedHomeIntroState() {
+  const homeSection = document.querySelector(".home");
+  const isMobile = window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
+  const pastHome = homeSection
+    ? window.scrollY > Math.max(homeSection.offsetHeight * 0.3, 40)
+    : false;
+  const showHomeContent = isMobile || !pastHome;
+  const showNav = isMobile || showHomeContent;
+
+  const nav = document.querySelector(".nav");
+  const navToggle = document.querySelector(".nav-toggle");
+  const badge = document.querySelector(".badge");
+  const headline = document.querySelector(".hero-headline");
+  const headlineWrap = document.querySelector(".hero-headline-wrapper");
+  const subWrapper = document.querySelector(".hero-sub-wrapper");
+  const sliderEntrance = document.querySelector(".slider-entrance");
+  const slider = document.querySelector(".slider");
+
+  gsap.set(nav, {
+    y: showNav ? 0 : -56,
+    opacity: showNav ? 1 : 0
+  });
+
+  gsap.set(navToggle, {
+    y: showNav ? 0 : -16,
+    autoAlpha: showNav ? 1 : 0
+  });
+
+  gsap.set(badge, {
+    y: showHomeContent ? 0 : -20,
+    opacity: showHomeContent ? 1 : 0
+  });
+
+  gsap.set(headlineWrap, {
+    y: showHomeContent ? 0 : -40,
+    opacity: showHomeContent ? 1 : 0
+  });
+
+  gsap.set(headline, { opacity: 1 });
+
+  gsap.set(subWrapper, {
+    y: showHomeContent ? 0 : 20,
+    opacity: showHomeContent ? 1 : 0
+  });
+
+  gsap.set(sliderEntrance, {
+    y: 0,
+    scale: showHomeContent ? 1 : 0.82,
+    autoAlpha: showHomeContent ? 1 : 0
+  });
+
+  if (slider) {
+    slider.classList.toggle("is-spinning", showHomeContent);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (!window.__skipHomeIntro) {
+    return;
+  }
+
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  hideSkippedHomeIntroScreen();
+  resetSkippedHomeIntroToTop();
+  settleSkippedHomeIntroState();
+});
+
+window.addEventListener("home:scroll-animations-ready", () => {
+  if (!window.__skipHomeIntro) {
+    return;
+  }
+
+  requestAnimationFrame(applySkippedHomeTarget);
+}, { once: true });
+
 window.addEventListener("load", () => {
-  const skipHomeIntro = sessionStorage.getItem("skipHomeIntro") === "1";
-  window.__skipHomeIntro = skipHomeIntro;
+  const skipHomeIntro = window.__skipHomeIntro === true;
 
   if (skipHomeIntro) {
-    const intro = document.querySelector(".intro-screen");
-    const target = window.location.hash ? document.querySelector(window.location.hash) : null;
-
-    if (intro) {
-      intro.style.opacity = "0";
-      intro.style.display = "none";
-    }
+    skippedHomeLoadHandled = true;
+    hideSkippedHomeIntroScreen();
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        if (target) {
-          target.scrollIntoView({ behavior: "auto", block: "start" });
+        if (skippedHomeTargetApplied) {
+          correctSkippedHomeTargetPosition();
+          window.__skipHomeIntro = false;
+        } else if (window.__homeScrollAnimationsReady) {
+          applySkippedHomeTarget();
         }
-
-        sessionStorage.removeItem("skipHomeIntro");
       });
     });
 
