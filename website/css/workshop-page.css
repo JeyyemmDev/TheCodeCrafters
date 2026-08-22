@@ -1,3 +1,371 @@
+/*========================= Fonts shits =========================  */
+/* Regular */
+@font-face {
+  font-family: 'Modius';
+  src: url('../../assets/fonts/modius-regular.woff2') format('woff2'),
+       url('../../assets/fonts/modius-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: 'Modius';
+  src: url('../../assets/fonts/modius-bold.woff2') format('woff2'),
+       url('../../assets/fonts/modius-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*========================= Reset css shits =========================*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--silver-gray);
+  color: var(--graphite-black);
+  overflow-x: hidden;
+}
+
+main {
+  background-color: var(--silver-gray);
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  border: none;
+  outline: none;
+}
+button {
+  background: none;
+  cursor: pointer;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: inherit;
+  line-height: 1.2;
+}
+p {
+  line-height: 1.6;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+
+/*========================= Variables shits =========================*/
+:root{
+    /* color pallette */
+    --royal-blue:  #1F4FB2;
+    --graphite-black: #1A1A1A;
+    --silver-gray: #C8C8C8;
+    --electric-cyan: #2CE6FF;
+    --white: #F7F7F7;
+
+}
+
+
+/* ─── Panel ─── */
+.panel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--silver-gray);
+
+  /* Removed fixed height — let content drive it */
+  min-height: 60px; /* safety floor so it never collapses */
+}
+
+/* ─── Container ─── */
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+
+  /* clamp() scales padding smoothly from 1rem → 2rem */
+  padding-inline: clamp(1rem, 4vw, 2rem);
+
+  /* Replace 120vh with auto + a min-height */
+  min-height: auto;
+  height: auto;
+
+
+  /* border: 1px solid #000; */
+
+  /* Prevent overflow on tiny screens */
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* ─── Responsive overrides ─── */
+@media (max-width: 768px) {
+  .container {
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-inline: 0;
+  }
+}
+
+.scroll-top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 54px;
+  height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(26, 26, 26, 0.92);
+  color: var(--white);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  overflow: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, width 0.25s ease, padding 0.25s ease, gap 0.25s ease;
+  z-index: 999;
+}
+
+.scroll-top-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+  width: 204px;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 18px;
+  background: #000;
+}
+
+.scroll-top-btn.is-on-dark {
+  background: rgba(247, 247, 247, 0.94);
+  color: var(--graphite-black);
+  border-color: rgba(26, 26, 26, 0.12);
+}
+
+.scroll-top-btn.is-on-dark:hover {
+  background: #fff;
+}
+
+.scroll-top-btn svg {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  fill: currentColor;
+}
+
+.scroll-top-btn-label {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: 'Modius';
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: max-width 0.25s ease, opacity 0.2s ease;
+}
+
+.scroll-top-btn:hover .scroll-top-btn-label,
+.scroll-top-btn:focus-visible .scroll-top-btn-label {
+  max-width: 140px;
+  opacity: 1;
+}
+
+.scroll-top-btn:focus-visible {
+  outline: 2px solid var(--royal-blue);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .scroll-top-btn {
+    right: 18px;
+    bottom: 18px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .scroll-top-btn:hover,
+  .scroll-top-btn:focus-visible {
+    width: 48px;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+
+  .scroll-top-btn-label {
+    display: none;
+  }
+}
+
+
+/*========================= Entrance animation and shits =========================  */
+
+
+/* SCREEN */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding:
+    max(20px, env(safe-area-inset-top))
+    max(20px, env(safe-area-inset-right))
+    max(20px, env(safe-area-inset-bottom))
+    max(20px, env(safe-area-inset-left));
+  z-index: 999999;
+}
+
+/* PILLARS */
+.pillars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.pillar {
+  flex: 1;
+  background: var(--graphite-black);
+  transform: translateY(-100%);
+}
+
+/* LOGO */
+.logo-wrap {
+  position: relative;
+  text-align: center;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.6vw, 14px);
+  width: min(100%, 520px);
+  max-width: 100%;
+  padding-inline: clamp(12px, 4vw, 28px);
+  color: #fff;
+}
+
+/* LOGO IMAGE */
+.logo-img {
+  width: clamp(72px, 18vw, 140px);
+  height: auto;
+  object-fit: contain;
+}
+.logo-wrap h1 {
+  font-family: 'Modius';
+  font-size: clamp(1rem, 4.8vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.logo-wrap p {
+  font-family: 'Modius';
+  font-weight: 400;
+  font-size: clamp(0.58rem, 2.3vw, 0.82rem);
+  letter-spacing: clamp(0.16em, 0.6vw, 0.32em);
+  margin-top: clamp(2px, 1vw, 8px);
+  color: var(--electric-cyan);
+  text-transform: uppercase;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+@media (max-width: 600px) {
+  .logo-wrap {
+    width: min(100%, 360px);
+  }
+
+  .logo-img {
+    width: clamp(68px, 22vw, 104px);
+  }
+}
+
+@media (max-width: 380px) {
+  .intro-screen {
+    padding:
+      max(16px, env(safe-area-inset-top))
+      max(16px, env(safe-area-inset-right))
+      max(16px, env(safe-area-inset-bottom))
+      max(16px, env(safe-area-inset-left));
+  }
+
+  .logo-wrap {
+    width: min(100%, 300px);
+    gap: 8px;
+    padding-inline: 10px;
+  }
+}
+
+@media (max-height: 720px) {
+  .logo-img {
+    width: clamp(64px, 14vh, 108px);
+  }
+
+  .logo-wrap h1 {
+    font-size: clamp(0.96rem, 3.5vh, 1.3rem);
+  }
+
+  .logo-wrap p {
+    font-size: clamp(0.54rem, 1.8vh, 0.72rem);
+    margin-top: 2px;
+  }
+}
 :root {
     /* mapped roles */
     --bg: var(--silver-gray);

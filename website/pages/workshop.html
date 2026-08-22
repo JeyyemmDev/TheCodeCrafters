@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Code Crafters | Workshop</title>
+    <link rel="icon" type="image/png" href="../../assets/tcc-logo/favicon-32.png" />
+
+ <!-- Font style from google shits  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+ <link rel="stylesheet" href="../css/workshop-page.css">
+
+
+
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="back-btn-wrapper" id="backBtn" style="opacity:0; transform: translateX(-30px);">
+    <button class="cta cta-back" onclick="goToweb()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+        <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+      </svg>
+      <span class="hover-underline-animation"> Back </span>
+    </button>
+  </div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <p class="hero-prompt"><span id="typedText"></span><span class="cursor"></span></p>
+  <h1 class="hero-title">
+    <span class="block-reveal">
+      <span class="block-content">Workshop</span>
+      <span class="block-revealer"></span>
+    </span>
+    <br/>
+    <span class="block-reveal">
+      <span class="block-content">Logs</span>
+      <span class="block-revealer"></span>
+    </span>
+  </h1>
+  <p class="hero-sub">
+    <span class="block-reveal" style="display:block;">
+      <span class="block-content">A timeline of hands-on sessions where Code Crafters members learned, built, and developed real-world coding skills through guided workshops and collaborative practice.</span>
+      <span class="block-revealer"></span>
+    </span>
+  </p>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll to explore</span>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+
+
+  <div class="timeline-wrapper">
+    <div class="spine"><div class="spine-fill" id="spineFill"></div></div>
+
+    <!-- ITEM 1 -->
+    <div class="timeline-item">
+      <div class="card-side">
+        <div class="event-card">
+          <div class="card-img-wrap img-failed" id="wrap-1">
+            <div class="fallback-code">
+              <div class="code-window-bar"><div class="wb wb-r"></div><div class="wb wb-y"></div><div class="wb wb-g"></div></div>
+              <div class="code-block">
+                <div class="code-line"><span class="ln">1</span><span class="cm">// The first high-level language</span></div>
+                <div class="code-line"><span class="ln">2</span><span class="kw">PROGRAM</span> <span class="fn">HelloWorld</span></div>
+                <div class="code-line"><span class="ln">3</span><span class="tx">&nbsp;&nbsp;</span><span class="kw">DISPLAY</span> <span class="st">"Hello, World!"</span></div>
+                <div class="code-line"><span class="ln">4</span><span class="kw">END PROGRAM</span></div>
+                <div class="code-line"><span class="ln">5</span><span class="cm">// COBOL — Grace Hopper, 1959</span></div>
+                <div class="code-line"><span class="ln">6</span><span class="gn">compile</span> <span class="op">→</span> <span class="nm">0 errors, 0 warnings</span></div>
+              </div>
+            </div>
+            <span class="code-tag tag-green">COBOL</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">The Birth of High-Level Programming Languages</h3>
+            <p class="card-desc">Grace Hopper's creation of COBOL in 1959 marked a seismic shift in computing — for the first time, humans could write programs in something resembling natural language rather than raw machine code. Hopper had already invented the first compiler in 1952, proving that code could translate itself. COBOL became the backbone of business computing and remains in production today, processing an estimated $3 trillion in daily commerce. Her insight — that programming should be accessible to humans, not just mathematicians — became the founding philosophy of every language that followed.</p>
+          </div>
+        </div>
+      </div>
+      <div class="center-side"><div class="dot"></div></div>
+      <div class="date-side">
+        <span class="year-badge">1959</span>
+        <span class="date-label">Grace Hopper</span>
+      </div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="timeline-item">
+      <div class="date-side">
+        <span class="year-badge">1969</span>
+        <span class="date-label">Bell Labs</span>
+      </div>
+      <div class="center-side"><div class="dot"></div></div>
+      <div class="card-side">
+        <div class="event-card">
+          <div class="card-img-wrap">
+            <div class="code-window-bar">
+              <div class="wb wb-r"></div><div class="wb wb-y"></div><div class="wb wb-g"></div>
+            </div>
+            <div class="code-block">
+              <div class="code-line"><span class="ln">1</span><span class="cm">/* Unix kernel — C language */</span></div>
+              <div class="code-line"><span class="ln">2</span><span class="kw">#include</span> <span class="st">&lt;stdio.h&gt;</span></div>
+              <div class="code-line"><span class="ln">3</span><span class="nm">int</span> <span class="fn">main</span><span class="op">() {</span></div>
+              <div class="code-line"><span class="ln">4</span><span class="tx">&nbsp;&nbsp;</span><span class="fn">printf</span><span class="op">(</span><span class="st">"Unix lives\n"</span><span class="op">);</span></div>
+              <div class="code-line"><span class="ln">5</span><span class="tx">&nbsp;&nbsp;</span><span class="kw">return</span> <span class="nm">0</span><span class="op">;</span></div>
+              <div class="code-line"><span class="ln">6</span><span class="op">}</span></div>
+            </div>
+            <span class="code-tag tag-blue">C / Unix</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Unix & the C Language — The Foundation of Everything</h3>
+            <p class="card-desc">Ken Thompson and Dennis Ritchie at Bell Labs built something that quietly became the foundation of nearly all modern software. Unix introduced the philosophy of small, composable tools chained together — a principle that defines the command line, Linux, and macOS to this day. C gave programmers direct memory control with elegant syntax, and went on to birth C++, Java, Python, and virtually every major language. When Linus Torvalds wrote Linux in 1991, he wrote it in C. The tree that grew from Bell Labs in 1969 still shades almost everything we build.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 3 -->
+    <div class="timeline-item">
+      <div class="card-side">
+        <div class="event-card">
+          <div class="card-img-wrap img-failed" id="wrap-3">
+            <div class="fallback-code">
+              <div class="code-window-bar"><div class="wb wb-r"></div><div class="wb wb-y"></div><div class="wb wb-g"></div></div>
+              <div class="code-block">
+                <div class="code-line"><span class="ln">1</span><span class="cm"># The internet's backbone</span></div>
+                <div class="code-line"><span class="ln">2</span><span class="kw">import</span> <span class="nm">socket</span></div>
+                <div class="code-line"><span class="ln">3</span><span class="fn">ping</span><span class="op">(</span><span class="st">"192.168.0.1"</span><span class="op">)</span></div>
+                <div class="code-line"><span class="ln">4</span><span class="cm"># → Reply: 1ms TTL=64</span></div>
+                <div class="code-line"><span class="ln">5</span><span class="nm">status</span> <span class="op">=</span> <span class="st">"CONNECTED"</span></div>
+                <div class="code-line"><span class="ln">6</span><span class="cm"># TCP/IP handshake complete ✓</span></div>
+              </div>
+            </div>
+            <span class="code-tag tag-orange">TCP/IP</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">TCP/IP — The Protocol That Wired the World</h3>
+            <p class="card-desc">On January 1, 1983, ARPANET officially switched to TCP/IP — the communication protocol designed by Vint Cerf and Bob Kahn. This "flag day" is considered the true birth of the modern Internet. TCP/IP's genius was in its universality: it didn't care what hardware you used or what OS ran beneath it. Every web request, every API call, every streamed video, every git push travels over the same foundational protocol. Without it, the networked world we take for granted simply could not exist.</p>
+          </div>
+        </div>
+      </div>
+      <div class="center-side"><div class="dot"></div></div>
+      <div class="date-side">
+        <span class="year-badge">1983</span>
+        <span class="date-label">Cerf & Kahn</span>
+      </div>
+    </div>
+
+    <!-- ITEM 4 -->
+    <div class="timeline-item">
+      <div class="date-side">
+        <span class="year-badge">1991</span>
+        <span class="date-label">Linus Torvalds</span>
+      </div>
+      <div class="center-side"><div class="dot"></div></div>
+      <div class="card-side">
+        <div class="event-card">
+          <div class="card-img-wrap img-failed" id="wrap-4">
+            <div class="fallback-code">
+              <div class="code-window-bar"><div class="wb wb-r"></div><div class="wb wb-y"></div><div class="wb wb-g"></div></div>
+              <div class="code-block">
+                <div class="code-line"><span class="ln">1</span><span class="cm"># "just a hobby, won't be big"</span></div>
+                <div class="code-line"><span class="ln">2</span><span class="op">$</span> <span class="fn">git</span> <span class="kw">init</span> <span class="nm">linux</span></div>
+                <div class="code-line"><span class="ln">3</span><span class="op">$</span> <span class="fn">git</span> <span class="kw">commit</span> <span class="nm">-m</span> <span class="st">"Initial commit"</span></div>
+                <div class="code-line"><span class="ln">4</span><span class="gn">✓</span> <span class="nm">96%</span> <span class="tx">of servers now run Linux</span></div>
+                <div class="code-line"><span class="ln">5</span><span class="op">$</span> <span class="fn">uname</span> <span class="nm">-r</span></div>
+                <div class="code-line"><span class="ln">6</span><span class="nm">6.8.0-linux</span></div>
+              </div>
+            </div>
+            <span class="code-tag tag-yellow">Linux</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Linux — The OS That Runs the World</h3>
+            <p class="card-desc">In August 1991, a 21-year-old Finnish student named Linus Torvalds posted to a newsgroup: "I'm doing a (free) operating system — just a hobby, won't be big and professional like GNU." He was catastrophically wrong. Linux now runs 96% of the world's top web servers, all 500 of the world's fastest supercomputers, the Android phones of 3 billion users, and the infrastructure of every major cloud provider. The open-source model Torvalds popularized — where thousands of strangers collaborate globally to build something no single company could — became the blueprint for how modern software is made.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 5 -->
+    <div class="timeline-item">
+      <div class="card-side">
+        <div class="event-card">
+          <div class="card-img-wrap img-failed" id="wrap-5">
+            <div class="fallback-code">
+              <div class="code-window-bar"><div class="wb wb-r"></div><div class="wb wb-y"></div><div class="wb wb-g"></div></div>
+              <div class="code-block">
+                <div class="code-line"><span class="ln">1</span><span class="cm"># Beautiful is better than ugly</span></div>
+                <div class="code-line"><span class="ln">2</span><span class="kw">def</span> <span class="fn">hello</span><span class="op">(</span><span class="nm">name</span><span class="op">):</span></div>
+                <div class="code-line"><span class="ln">3</span><span class="tx">&nbsp;&nbsp;</span><span class="kw">return</span> <span class="nm">f</span><span class="st">"Hello, {name}!"</span></div>
+                <div class="code-line"><span class="ln">4</span><span class="fn">print</span><span class="op">(</span><span class="fn">hello</span><span class="op">(</span><span class="st">"World"</span><span class="op">))</span></div>
+                <div class="code-line"><span class="ln">5</span><span class="cm"># → Hello, World!</span></div>
+              </div>
+            </div>
+            <span class="code-tag tag-blue">Python</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Python — Readability Changes Everything</h3>
+            <p class="card-desc">When Guido van Rossum released Python in 1991, he prioritized something radical: code that humans could read like prose. Python's clean indentation-based syntax eliminated the noise of braces and semicolons, making it accessible to scientists, mathematicians, and beginners who weren't trained programmers. Decades later, that accessibility became explosive power. Python now dominates data science, machine learning, and AI research. NumPy, TensorFlow, PyTorch — virtually every major ML framework is Python-first. The language Guido called a "hobby project" is now the most widely used programming language on Earth.</p>
+          </div>
+        </div>
+      </div>
+      <div class="center-side"><div class="dot"></div></div>
+      <div class="date-side">
+        <span class="year-badge">1991</span>
+        <span class="date-label">Guido van Rossum</span>
+      </div>
+    </div>
+
+    <!-- ITEM 6 -->
+    <div class="timeline-item">
+      <div class="date-side">
+        <span class="year-badge">2005</span>
+        <span class="date-label">Linus Torvalds</span>
+      </div>
+      <div class="center-side"><div class="dot"></div></div>
+      <div class="card-side">
+        <div class="event-card">
+          <div class="card-img-wrap img-failed" id="wrap-6">
+            <div class="fallback-code">
+              <div class="code-window-bar"><div class="wb wb-r"></div><div class="wb wb-y"></div><div class="wb wb-g"></div></div>
+              <div class="code-block">
+                <div class="code-line"><span class="ln">1</span><span class="op">$</span> <span class="fn">git</span> <span class="kw">clone</span> <span class="st">github.com/user/repo</span></div>
+                <div class="code-line"><span class="ln">2</span><span class="op">$</span> <span class="fn">git</span> <span class="kw">checkout</span> <span class="nm">-b</span> <span class="gn">feature/history</span></div>
+                <div class="code-line"><span class="ln">3</span><span class="op">$</span> <span class="fn">git</span> <span class="kw">commit</span> <span class="nm">-m</span> <span class="st">"feat: rewrite history"</span></div>
+                <div class="code-line"><span class="ln">4</span><span class="op">$</span> <span class="fn">git</span> <span class="kw">push</span> origin <span class="gn">feature/history</span></div>
+                <div class="code-line"><span class="ln">5</span><span class="gn">✓</span> <span class="tx">Pull request merged</span></div>
+                <div class="code-line"><span class="ln">6</span><span class="cm"># 100M+ devs use git daily</span></div>
+              </div>
+            </div>
+            <span class="code-tag tag-purple">Git</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Git — Version Control That Changed Collaboration Forever</h3>
+            <p class="card-desc">After a licensing dispute with BitKeeper, Linus Torvalds spent 10 days in April 2005 writing Git from scratch — fast, distributed, and completely reliable. Git's branching model was revolutionary: cheap, instant branches meant developers could experiment freely without fear. GitHub, launched in 2008, turned Git into a social network for code, triggering an explosion in open-source collaboration. Today, over 100 million developers use Git daily. Every line of code you've ever written probably lives in a repository it manages.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END -->
+    <div class="timeline-end">
+      <div class="end-terminal">
+        <div class="t-bar">
+          <div class="wb wb-r"></div><div class="wb wb-y"></div><div class="wb wb-g"></div>
+          <span class="t-title">bash — 80x24</span>
+        </div>
+        <div class="prompt">git commit -m <span>"next workshop coming soon"</span><span class="cursor"></span></div>
+        <div class="output"># push pending...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── BACK BUTTON ── */
+ function goToweb() {
+      sessionStorage.setItem('skipHomeIntro', '1');
+      window.location.href = '../../index.html#activities';
+    }
+
+gsap.to('#backBtn', {
+  opacity: 1, x: 0, duration: 0.7, ease: 'power3.out', delay: 0.2
+});
+
+/* ── HERO ELEMENTS REFS ── */
+const heroPrompt     = document.querySelector('.hero-prompt');
+const heroTitle      = document.querySelector('.hero-title');
+const heroSub        = document.querySelector('.hero-sub');
+const heroScrollHint = document.querySelector('.hero-scroll-hint');
+
+gsap.set('.hero-title', { opacity: 1 });
+gsap.set('.hero-sub',   { opacity: 1 });
+gsap.set('.block-content',  { opacity: 0 });
+gsap.set('.block-revealer', { scaleX: 0, transformOrigin: 'left center' });
+
+/* ── BLOCK REVEAL FUNCTION ── */
+function runBlockReveal() {
+  const blockWords = document.querySelectorAll('.block-reveal');
+
+  // Reset all block reveals
+  gsap.set('.block-content',  { opacity: 0 });
+  gsap.set('.block-revealer', { scaleX: 0, transformOrigin: 'left center' });
+
+  blockWords.forEach((word, i) => {
+    const blockContent  = word.querySelector('.block-content');
+    const blockRevealer = word.querySelector('.block-revealer');
+
+    gsap.timeline({
+      delay: 0.3 + (i * 0.35),
+      defaults: { ease: 'power4.inOut' }
+    })
+    .to(blockRevealer, { scaleX: 1, duration: 0.55 })
+    .to(blockContent,  { opacity: 1, duration: 0.01 })
+    .set(blockRevealer, { transformOrigin: 'right center' })
+    .to(blockRevealer, { scaleX: 0, duration: 0.6 });
+  });
+}
+
+/* ── INITIAL HERO ENTRANCE ── */
+gsap.set(heroPrompt,     { opacity: 0, y: 20 });
+gsap.set(heroScrollHint, { opacity: 0 });
+
+gsap.timeline({ defaults: { ease: 'power3.out' } })
+  .to(heroPrompt,     { opacity: 1, y: 0, duration: 0.7, delay: 0.3 })
+  .to(heroScrollHint, { opacity: 1,       duration: 0.5 }, '+=1.8');
+
+runBlockReveal();
+
+/* ── HERO EXIT / RE-ENTER via ScrollTrigger ── */
+let heroExited = false;
+
+ScrollTrigger.create({
+  trigger: '.hero',
+  start: 'top top',
+  end: 'bottom top',
+  onLeave: () => {
+    // Hero scrolled out the top — fly everything up
+    heroExited = true;
+    gsap.to([heroPrompt, heroScrollHint], {
+      y: -50, opacity: 0, duration: 0.5, ease: 'power3.in', stagger: 0.06
+    });
+    gsap.to([heroTitle, heroSub], {
+      y: -50, duration: 0.5, ease: 'power3.in', stagger: 0.06
+    });
+    gsap.to('.block-content', {
+      opacity: 0, duration: 0.3, ease: 'power2.in'
+    });
+  },
+  onEnterBack: () => {
+    // Scrolled back into hero — drop everything down from above
+    if (!heroExited) return;
+    heroExited = false;
+
+    // Reset positions above
+    gsap.set([heroPrompt, heroScrollHint], { y: -50, opacity: 0 });
+    gsap.set([heroTitle, heroSub], { y: -50 });
+    gsap.set('.block-content', { opacity: 0 });
+
+    // Animate down
+    gsap.to([heroPrompt, heroScrollHint], {
+      y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.1, delay: 0.1
+    });
+    gsap.to([heroTitle, heroSub], {
+      y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1, delay: 0.1
+    });
+
+    // Re-run block reveal after elements are in position
+    setTimeout(runBlockReveal, 150);
+  }
+});
+
+/* ── SPINE FILL ── */
+const spineFill = document.getElementById('spineFill');
+ScrollTrigger.create({
+  trigger: '.timeline-wrapper',
+  start: 'top 80%', end: 'bottom 20%',
+  onUpdate: (self) => { spineFill.style.height = (self.progress * 100) + '%'; }
+});
+
+/* ── CARDS ── */
+function initCardAnimations() {
+  ScrollTrigger.getAll().filter(st => st.vars && st.vars._card).forEach(st => st.kill());
+  const mobile = window.innerWidth <= 768;
+
+  document.querySelectorAll('.timeline-item').forEach((item, i) => {
+    const card = item.querySelector('.event-card');
+    const dot  = item.querySelector('.dot');
+    dot.classList.remove('active');
+
+    gsap.set(card, { opacity: 0, y: 35, x: mobile ? 0 : (i % 2 === 0 ? -45 : 45) });
+    gsap.set(dot,  { scale: 0 });
+
+    const tl = gsap.timeline({ paused: true })
+      .to(dot,  { scale: 1, duration: 0.35, ease: 'back.out(2.5)' })
+      .to(card, { opacity: 1, y: 0, x: 0, duration: 0.6, ease: 'power3.out' }, '-=0.1');
+
+    function resetItem() {
+      tl.pause(0);
+      dot.classList.remove('active');
+      gsap.set(card, { opacity: 0, y: 35, x: mobile ? 0 : (i % 2 === 0 ? -45 : 45) });
+      gsap.set(dot, { scale: 0 });
+    }
+
+    ScrollTrigger.create({
+      trigger: item,
+      start: 'top bottom', end: 'bottom top',
+      _card: true,
+      onEnter:     () => { resetItem(); tl.play(0); dot.classList.add('active'); },
+      onEnterBack: () => { resetItem(); tl.play(0); dot.classList.add('active'); },
+      onLeave:     () => resetItem(),
+      onLeaveBack: () => resetItem(),
+    });
+  });
+}
+
+initCardAnimations();
+
+/* ── SECTION HEADER ── */
+gsap.from('.section-header', {
+  scrollTrigger: { trigger: '.section-header', start: 'top 80%', toggleActions: 'play none none reset' },
+  opacity: 0, y: 30, duration: 0.8, ease: 'power2.out'
+});
+
+/* ── END ── */
+gsap.from('.timeline-end', {
+  scrollTrigger: { trigger: '.timeline-end', start: 'top 85%', toggleActions: 'play none none reset' },
+  opacity: 0, y: 20, duration: 0.7, ease: 'power2.out'
+});
+
+
+/* ── TYPING LOOP ANIMATION ── */
+(function() {
+  const el     = document.getElementById('typedText');
+  const text   = 'show workshops --logs';
+  const typeSpeed   = 80;
+  const deleteSpeed = 40;
+  const pauseAfterType   = 1800;
+  const pauseAfterDelete = 500;
+  let i = 0, deleting = false;
+
+  function tick() {
+    if (!deleting) {
+      el.textContent = text.slice(0, i + 1);
+      i++;
+      if (i === text.length) {
+        setTimeout(() => { deleting = true; tick(); }, pauseAfterType);
+        return;
+      }
+      setTimeout(tick, typeSpeed);
+    } else {
+      el.textContent = text.slice(0, i - 1);
+      i--;
+      if (i === 0) {
+        setTimeout(() => { deleting = false; tick(); }, pauseAfterDelete);
+        return;
+      }
+      setTimeout(tick, deleteSpeed);
+    }
+  }
+
+  tick();
+})();
+
+/* ── IMAGE FALLBACK ── */
+function imgFail(wrapId) {
+  const wrap = document.getElementById(wrapId);
+  if (wrap) wrap.classList.add('img-failed');
+}
+
+/* ── RESIZE ── */
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { initCardAnimations(); ScrollTrigger.refresh(); }, 200);
+});
+</script>
+</body>
+</html>
