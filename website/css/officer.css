@@ -163,6 +163,79 @@
       margin-top: 28px;
     }
 
+    .members-link-wrapper {
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 34px;
+    }
+
+    .members-text-link {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) max-content minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(14px, 2.8vw, 24px);
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 640px;
+      min-width: 0;
+      color: var(--graphite-black);
+      font-family: 'Modius';
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      line-height: 1.2;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .members-text-link::before,
+    .members-text-link::after {
+      content: "";
+      display: block;
+      width: 86%;
+      max-width: 100%;
+      height: 1px;
+      background-color: var(--graphite-black);
+      opacity: .62;
+      transition: width .3s ease, opacity .3s ease;
+    }
+
+    .members-text-link::before {
+      justify-self: end;
+    }
+
+    .members-text-link::after {
+      justify-self: start;
+    }
+
+    .members-link-label {
+      white-space: nowrap;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+
+    .members-text-link:hover::before,
+    .members-text-link:hover::after,
+    .members-text-link:focus-visible::before,
+    .members-text-link:focus-visible::after {
+      width: 100%;
+      opacity: 1;
+    }
+
+    .members-text-link:hover .members-link-label,
+    .members-text-link:focus-visible .members-link-label {
+      opacity: .78;
+      transform: translateY(-1px);
+    }
+
+    .members-text-link:focus-visible {
+      outline: 2px solid var(--graphite-black);
+      outline-offset: 8px;
+    }
+
     .committee-preview-cta {
       display: none;
     }
@@ -505,6 +578,17 @@
         margin-top: 24px;
       }
 
+      .members-link-wrapper {
+        margin-top: 30px;
+      }
+
+      .members-text-link {
+        grid-template-columns: minmax(0, 1fr) max-content minmax(0, 1fr);
+        gap: 12px;
+        font-size: 12px;
+        letter-spacing: 3px;
+      }
+
       .committee-preview-label,
       .committee-preview-grid {
         display: none;
@@ -564,5 +648,13 @@
         font-size: 14px;
         line-height: 1.6;
         padding: 14px 0;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .members-text-link {
+        gap: 8px;
+        font-size: 11px;
+        letter-spacing: 2px;
       }
     }

@@ -694,6 +694,7 @@
     const heroLeft = qs('.hero-left',  section);
     const heroCard = qs('.hero-card',  section);
     const committeeLabel = qs('.committee-preview-label', section);
+    const membersLink = qs('.members-link-wrapper', section);
 
     if (isMobile) {
       createSimpleReveal(
@@ -713,6 +714,14 @@
       );
 
       revealTeamGridCards(section, true);
+
+      createSimpleReveal(
+        membersLink,
+        { y: 18, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.45, ease: EASE_OUT },
+        membersLink,
+        'top 94%'
+      );
       return;
     }
 
@@ -746,6 +755,16 @@
 
     /* ── Team cards ──────────────────────────────────── */
     revealTeamGridCards(section, false);
+
+    createResettingReveal(
+      membersLink,
+      { y: 22, opacity: 0 },
+      { y: 0, opacity: 1, duration: DUR_MED, ease: EASE_OUT },
+      membersLink,
+      'top 92%',
+      'bottom 12%',
+      0.45
+    );
 
   }
 
