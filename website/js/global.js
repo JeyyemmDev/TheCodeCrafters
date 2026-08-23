@@ -128,10 +128,12 @@ function settleSkippedHomeIntroState() {
     opacity: showNav ? 1 : 0
   });
 
-  gsap.set(navToggle, {
-    y: showNav ? 0 : -16,
-    autoAlpha: showNav ? 1 : 0
-  });
+  if (!isMobile) {
+    gsap.set(navToggle, {
+      y: showNav ? 0 : -16,
+      autoAlpha: showNav ? 1 : 0
+    });
+  }
 
   gsap.set(badge, {
     y: showHomeContent ? 0 : -20,

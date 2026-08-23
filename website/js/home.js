@@ -21,6 +21,7 @@ window.buildHomeEntranceTL = function () {
   const sliderEl        = document.querySelector('.slider');
   const nav             = document.querySelector('.nav');
   const navToggle       = document.querySelector('.nav-toggle');
+  const isMobile        = window.matchMedia('(max-width: 900px)').matches;
 
   /* Build an empty TL so we always return something valid */
   const tl = gsap.timeline();
@@ -31,7 +32,9 @@ window.buildHomeEntranceTL = function () {
      Y offsets and make sure visibility is correct.
   ──────────────────────────────────────────────────────── */
   gsap.set(nav,           { y: -56, opacity: 0 });
-  gsap.set(navToggle,     { y: -16, autoAlpha: 0 });
+  if (!isMobile) {
+    gsap.set(navToggle,   { y: -16, autoAlpha: 0 });
+  }
   gsap.set(badge,         { y: -20, opacity: 0 });
   gsap.set(subWrapper,    { y:  28, opacity: 0 });
 
@@ -83,8 +86,13 @@ window.buildHomeEntranceTL = function () {
   const IN_EASE = 'expo.out';
 
   tl
-    .to(nav,          { y: 0, opacity: 1, duration: IN_DUR, ease: IN_EASE }, '+=0')
-    .to(navToggle,    { y: 0, autoAlpha: 1, duration: IN_DUR, ease: IN_EASE }, '<')
+    .to(nav,          { y: 0, opacity: 1, duration: IN_DUR, ease: IN_EASE }, '+=0');
+
+  if (!isMobile) {
+    tl.to(navToggle,  { y: 0, autoAlpha: 1, duration: IN_DUR, ease: IN_EASE }, '<');
+  }
+
+  tl
     .to(badge,        { y: 0, opacity: 1, duration: IN_DUR, ease: IN_EASE }, '<')
     .to(subWrapper,   { y: 0, opacity: 1, duration: IN_DUR, ease: IN_EASE }, '<')
 
