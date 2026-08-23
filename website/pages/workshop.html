@@ -164,11 +164,14 @@ ScrollTrigger.create({
 
 /* ── SPINE FILL ── */
 const spineFill = document.getElementById('spineFill');
-ScrollTrigger.create({
-  trigger: '.timeline-wrapper',
-  start: 'top 80%', end: 'bottom 20%',
-  onUpdate: (self) => { spineFill.style.height = (self.progress * 100) + '%'; }
-});
+const timelineWrapper = document.querySelector('.timeline-wrapper');
+if (spineFill && timelineWrapper) {
+  ScrollTrigger.create({
+    trigger: timelineWrapper,
+    start: 'top 80%', end: 'bottom 20%',
+    onUpdate: (self) => { spineFill.style.height = (self.progress * 100) + '%'; }
+  });
+}
 
 /* ── CARDS ── */
 function initCardAnimations() {
@@ -178,6 +181,7 @@ function initCardAnimations() {
   document.querySelectorAll('.timeline-item').forEach((item, i) => {
     const card = item.querySelector('.event-card');
     const dot  = item.querySelector('.dot');
+    if (!card || !dot) return;
     dot.classList.remove('active');
 
     gsap.set(card, { opacity: 0, y: 35, x: mobile ? 0 : (i % 2 === 0 ? -45 : 45) });
@@ -209,16 +213,20 @@ function initCardAnimations() {
 initCardAnimations();
 
 /* ── SECTION HEADER ── */
-gsap.from('.section-header', {
-  scrollTrigger: { trigger: '.section-header', start: 'top 80%', toggleActions: 'play none none reset' },
-  opacity: 0, y: 30, duration: 0.8, ease: 'power2.out'
-});
+if (document.querySelector('.section-header')) {
+  gsap.from('.section-header', {
+    scrollTrigger: { trigger: '.section-header', start: 'top 80%', toggleActions: 'play none none reset' },
+    opacity: 0, y: 30, duration: 0.8, ease: 'power2.out'
+  });
+}
 
 /* ── END ── */
-gsap.from('.timeline-end', {
-  scrollTrigger: { trigger: '.timeline-end', start: 'top 85%', toggleActions: 'play none none reset' },
-  opacity: 0, y: 20, duration: 0.7, ease: 'power2.out'
-});
+if (document.querySelector('.timeline-end')) {
+  gsap.from('.timeline-end', {
+    scrollTrigger: { trigger: '.timeline-end', start: 'top 85%', toggleActions: 'play none none reset' },
+    opacity: 0, y: 20, duration: 0.7, ease: 'power2.out'
+  });
+}
 
 
 /* ── TYPING LOOP ANIMATION ── */
