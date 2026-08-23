@@ -718,6 +718,10 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .event-card {
+    width: 100%;
+    max-width: 600px;
+    margin-inline: auto;
+
     background: var(--white);
     border-radius: var(--radius);
     overflow: hidden;
@@ -734,14 +738,32 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── CODE BLOCK IMAGE ── */
-.card-img-wrap {
-    position: relative;
-    height: 200px;
-    overflow: hidden;
-    background: var(--graphite-black);
-    border-bottom: 1px solid var(--silver-gray);
+
+/* ── CARD IMAGE ── */
+.card-side {
+    padding: 0;
 }
 
+.event-card {
+    width: 100%;
+    max-width: 600px;
+    margin-inline: auto;
+    overflow: hidden;
+}
+
+.card-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.code-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
 .code-window-bar {
     display: flex;
     align-items: center;
@@ -990,9 +1012,6 @@ p, h1, h2, h3, h4, h5, h6 {
         font-size: 1.4rem;
     }
 
-    .card-img-wrap {
-        height: 160px;
-    }
 
     .code-line {
         font-size: 0.65rem;
@@ -1026,10 +1045,7 @@ p, h1, h2, h3, h4, h5, h6 {
         font-size: 1.2rem;
     }
 
-    .card-img-wrap {
-        height: 140px;
-    }
-
+  
     .end-terminal {
         min-width: unset;
         padding: 1rem 1.5rem;
