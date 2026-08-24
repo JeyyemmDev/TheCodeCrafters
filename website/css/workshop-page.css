@@ -613,9 +613,16 @@ p, h1, h2, h3, h4, h5, h6 {
 /* ── TIMELINE ITEM ── */
 .timeline-item {
     display: grid;
-    grid-template-columns: 1fr 60px 1fr;
-    gap: 0;
+    grid-template-columns: minmax(0, 1fr) 60px minmax(0, 1fr);
+    grid-template-rows: auto;
+    column-gap: 0;
+    row-gap: 0;
     margin-bottom: 5rem;
+
+    /*
+      Every direct child must start at the exact same
+      vertical position.
+    */
     align-items: start;
 }
 
@@ -623,29 +630,51 @@ p, h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0;
 }
 
+
+/* ── FORCE ALL TIMELINE PARTS INTO THE SAME ROW ── */
+
+.timeline-item .card-side,
+.timeline-item .date-side,
+.timeline-item .center-side {
+    grid-row: 1;
+    align-self: start;
+    margin-top: 0;
+}
+
+
 .timeline-item:nth-child(odd) .card-side {
-    grid-column: 1;
+    grid-column: 3;
+    grid-row: 1;
 }
 
 .timeline-item:nth-child(odd) .center-side {
     grid-column: 2;
+    grid-row: 1;
 }
 
 .timeline-item:nth-child(odd) .date-side {
-    grid-column: 3;
+    grid-column: 1;
+    grid-row: 1;
+
+    text-align: right;
 }
 
+
 .timeline-item:nth-child(even) .date-side {
-    grid-column: 1;
-    text-align: right;
+    grid-column: 3;
+    grid-row: 1;
+
+    text-align: left;
 }
 
 .timeline-item:nth-child(even) .center-side {
     grid-column: 2;
+    grid-row: 1;
 }
 
 .timeline-item:nth-child(even) .card-side {
-    grid-column: 3;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 /* ── DOT ── */
@@ -653,7 +682,12 @@ p, h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 0;
+    justify-content: flex-start;
+
+    padding: 0;
+    margin: 0;
+
+    align-self: start;
     overflow: visible;
 }
 
@@ -690,8 +724,12 @@ p, h1, h2, h3, h4, h5, h6 {
 
 /* ── DATE SIDE ── */
 .date-side {
-    padding-top: 0;
-    padding-inline: 1.5rem;
+    display: block;
+
+    padding: 0 1.5rem;
+    margin: 0;
+
+    align-self: start;
 }
 
 .year-badge {
@@ -713,23 +751,42 @@ p, h1, h2, h3, h4, h5, h6 {
 
 /* ── CARD ── */
 .card-side {
-    padding-top: 0;
-    padding-inline: 1rem;
+    width: 100%;
+
+    /*
+      Remove all duplicate padding rules.
+      This ensures the card starts at the
+      same Y position as the date.
+    */
+    padding: 0;
+    margin: 0;
+
+    align-self: start;
 }
 
 .event-card {
-    width: 100%;
+    width: min(100%, 600px);
     max-width: 600px;
-    margin-inline: auto;
+
+    /*
+      margin-inline only centers horizontally.
+      margin-block must stay 0.
+    */
+    margin: 0 auto;
 
     background: var(--white);
     border-radius: var(--radius);
     overflow: hidden;
     border: 1px solid var(--silver-gray);
+
     position: relative;
+
     opacity: 0;
     will-change: transform, opacity;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .event-card:hover {
