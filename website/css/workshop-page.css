@@ -1304,3 +1304,16 @@ p, h1, h2, h3, h4, h5, h6 {
         height: calc(100% - 35px);
     }
 }
+
+
+@media (max-width: 768px) {
+    .participation-title {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .participation-title {
+        font-size: 0.7em;
+    }
+}
